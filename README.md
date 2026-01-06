@@ -31,13 +31,18 @@ Modeled semi-structured data and operations using MongoDB.
 Created analytical SQL queries on the data warehouse schema.
 
 4. Repository Structure
-├── data/                   # Raw input datasets
-├── part1-database-etl/     # ETL pipeline and RDBMS design
-├── part2-nosql/            # NoSQL analysis and MongoDB modeling
-├── part3-datawarehouse/    # Data warehouse schema and analytics
-└── README.md               # Project documentation
 
-5. Technologies Used
+data/ (#Raw input datasets)
+
+part1-database-etl/ (#ETL pipeline and RDBMS design)
+
+part2-nosql/ (#NoSQL analysis and MongoDB modeling)
+
+part3-datawarehouse/ (#Data warehouse schema and analytics)
+
+README.md
+
+6. Technologies Used
 
 Python 3.x, Pandas
 
