@@ -1,0 +1,20 @@
+✅ nosql_analysis.md
+Section A: Limitations of RDBMS
+
+Relational Database Management Systems (RDBMS) are designed for structured data with stable and predefined schemas, but they are less effective for managing highly heterogeneous product catalogs. In FlexiMart’s case, product categories such as electronics, apparel, and furniture have distinct attribute sets, resulting in a polymorphic data model. Implementing this in an RDBMS typically requires either wide tables with numerous nullable columns or multiple subtype tables linked to a parent entity. Both approaches increase schema complexity, storage inefficiency due to sparse data, and query execution costs caused by extensive join operations.
+
+Schema evolution further complicates this design. Introducing new product types or attributes requires DDL operations such as ALTER TABLE, which may lead to table locking, index rebuilds, and potential downtime in production environments. This tight coupling between application logic and database schema reduces system agility.
+
+Additionally, customer reviews and ratings must be normalized into separate tables connected via foreign keys. While this ensures referential integrity, it increases join depth and degrades read performance for aggregation-heavy queries. Hierarchical data, such as product specifications and reviews, does not map naturally to relational tables, often resulting in suboptimal designs. As data volume grows, reliance on vertical scaling further limits performance and cost efficiency.
+
+Section B: Benefits of MongoDB
+
+MongoDB overcomes the limitations of relational databases through its schema-flexible, document-oriented data model. Product information is stored as BSON documents, allowing each product to contain only the attributes relevant to its category. For example, electronic products can include fields such as processor, RAM, and storage, while apparel items can store size, color, and material without requiring schema alterations or database migrations. This flexibility significantly reduces schema management overhead and enables rapid onboarding of new product categories.
+
+MongoDB also supports embedded documents, which allows related data such as customer reviews, ratings, and product specifications to be stored within a single product document. By co-locating related data, MongoDB minimizes the need for join operations, resulting in improved read performance and simplified query execution for read-heavy workloads. Furthermore, MongoDB is architected for horizontal scalability through sharding, enabling large datasets to be distributed across multiple nodes. This design provides high availability, fault tolerance, and performance scalability, making MongoDB well suited for dynamic, large-scale e-commerce platforms like FlexiMart.
+
+Section C: Trade-offs (≈100 words)
+
+Key limitation of MongoDB is its comparatively weaker transactional model when contrasted with relational databases such as MySQL, particularly for complex multi-document transactions. Although MongoDB supports ACID transactions, they introduce additional overhead and are less efficient than native transactional mechanisms in RDBMS, making them less suitable for workloads that demand strict consistency, such as financial processing and payment systems.
+
+Additionally, MongoDB’s document-oriented design often encourages data denormalization through embedded documents. While this improves read performance, it can lead to data redundancy, increased storage consumption, and update anomalies when shared attributes must be modified across multiple documents. Consequently, MongoDB is better suited for flexible, read-heavy use cases like product catalogs, whereas relational databases remain the preferred choice for transaction-intensive domains requiring strong consistency and normalized data models.
